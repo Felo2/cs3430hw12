@@ -52,10 +52,19 @@ lneq8 = make_line_eq(make_var('y'),
 
 def line_intersection(lneq1, lneq2):
     # Case 1: 2 const lines
-    if is_const_line(lneq1 and is_const_line(lneq2):
-        if (var)(lneq1.get_lhs()).get_name() == 'x':
-            
+    if is_const_line(lneq1) and is_const_line(lneq2):
+        if var(lneq1.get_lhs()).get_name() == 'x':
+            x = lneq1.get_rhs().get_val()
+            y = lneq2.get_rhs().get_val()
+        elif var(lneq1.get_lhs()).get_name() == 'y':
+            y = lneq1.get_rhs().get_val()
+            x = lneq2.get_rhs().get_val()
+        else:
+            raise Exception('line_intersection: ' + str(lneq1))
+    else:
+        raise Exception('line_intersection: ' + 'unknown equations')
 
+    return make_point2d(x, y)
 
     
 ### a few tests
@@ -89,16 +98,16 @@ def test_04():
   print(line_intersection(ln1, ln2))
   print(line_intersection(ln2, ln1))
 
-def test_05():
-  ln1 = make_line_eq(make_var('y'), make_pwr('x', 1.0))
-  ln2 = make_line_eq(make_var('y'), make_prod(make_const(2.0),
-                                              make_pwr('x', 1.0)))
-  ln3 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(3.0),
-                                                        make_pwr('x', 1.0)),
-                                              make_const(-10.0)))
-  print(get_line_coeffs(ln1))
-  print(get_line_coeffs(ln2))
-  print(get_line_coeffs(ln3))
+# def test_05():
+#   ln1 = make_line_eq(make_var('y'), make_pwr('x', 1.0))
+#   ln2 = make_line_eq(make_var('y'), make_prod(make_const(2.0),
+#                                               make_pwr('x', 1.0)))
+#   ln3 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(3.0),
+#                                                         make_pwr('x', 1.0)),
+#                                               make_const(-10.0)))
+#   print(get_line_coeffs(ln1))
+#   print(get_line_coeffs(ln2))
+#   print(get_line_coeffs(ln3))
 
 def test_06():
   ln1 = make_line_eq(make_var('y'), make_pwr('x', 1.0))
@@ -194,7 +203,8 @@ def opt_prob_1c():
   pass
   
 
-                                              
+if __name__ =='__main__':
+    test_01()
   
   
 
