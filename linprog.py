@@ -52,15 +52,26 @@ lneq8 = make_line_eq(make_var('y'),
 
 def line_intersection(lneq1, lneq2):
     # Case 1: 2 const lines
-    if is_const_line(lneq1) and is_const_line(lneq2):
-        if lneq1.get_lhs().get_name() == 'x':
-            x = lneq1.get_rhs().get_val()
-            y = lneq2.get_rhs().get_val()
-        elif lneq1.get_lhs().get_name() == 'y':
-            y = lneq1.get_rhs().get_val()
-            x = lneq2.get_rhs().get_val()
+    if is_const_line(lneq1):
+        if is_const_line(lneq2):
+            if lneq1.get_lhs().get_name() == 'x':
+                x = lneq1.get_rhs().get_val()
+                y = lneq2.get_rhs().get_val()
+            elif lneq1.get_lhs().get_name() == 'y':
+                y = lneq1.get_rhs().get_val()
+                x = lneq2.get_rhs().get_val()
+            else:
+                raise Exception('line_intersection: ' + str(lneq1))
         else:
-            raise Exception('line_intersection: ' + str(lneq1))
+            y = lneq1.get_rhs().get_val()
+            x = tof(lneq2.get_rhs())(y)
+
+    elif is_const_line(lneq2):
+        #Case 2: 1 const line y = 1 ;y = x -1
+        y = lneq2.get_rhs().get_val()
+        x = tof(lneq1.get_rhs())(y)
+
+
     else:
         raise Exception('line_intersection: ' + 'unknown equations')
 
@@ -76,7 +87,7 @@ def test_01():
   assert is_const_line(ln2)
   print(line_intersection(ln1, ln2))
 
-def test_02():
+def test_02():# y = 2; y = x -6
   ln1 = make_line_eq(make_var('y'), make_const(2.0))
   ln2 = make_line_eq(make_var('y'), make_plus(make_pwr('x', 1.0),
                                               make_const(-6.0)))
@@ -204,7 +215,7 @@ def opt_prob_1c():
   
 
 if __name__ =='__main__':
-    test_01()
+    test_02()
   
   
 
