@@ -2,7 +2,7 @@ from line_eq import line_eq
 from maker import make_line_eq
 from maker import make_var, make_const, make_prod
 from maker import make_pwr, make_plus
-from linprog import line_intersection, get_line_coeffs, maximize_obj_fun, minimize_obj_fun
+from linprog import line_intersection, get_line_coeffs, maximize_obj_fun, minimize_obj_fun, opt_prob_1a, opt_prob_1b,opt_prob_1c
 from maker import make_point2d
 from const import const
 from var import var
@@ -98,12 +98,12 @@ def test_10():
 
 ### more tests
 
-def test_11():
+def test_11():#x = 1; y = 0.5x;  y = -3/4x + 3
     ln1 = make_line_eq(make_var('x'), make_const(1.0))
     ln2 = make_line_eq(make_var('y'), make_prod(make_const(0.5),
                                                 make_pwr('x', 1.0)))
     print(line_intersection(ln1, ln2))
-    ln3 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(-3.0 / 4),
+    ln3 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(-3.0 / 4.0),
                                                           make_pwr('x', 1.0)),
                                                 make_const(3.0)))
     print(line_intersection(ln1, ln3))
@@ -128,4 +128,5 @@ def test_12():
     print(line_intersection(ln3, ln4))
 
 if __name__ =='__main__':
-    test_10()
+    # opt_prob_1a()
+    opt_prob_1c()

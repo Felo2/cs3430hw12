@@ -85,6 +85,16 @@ def line_intersection(lneq1, lneq2):
             y = tof(lneq1.get_rhs())(x)
         else:
             raise Exception("Unknown plus equation")
+    elif isinstance(lneq1.get_rhs(), prod):#y = 0.5x; y = -0.75x +3
+        eq1_coeff = get_line_coeffs(lneq1)
+        eq2_coeff = get_line_coeffs(lneq2)
+        if isinstance(lneq2.get_rhs(), plus):
+            eq2_const = lneq2.get_rhs().get_elt2().get_val()
+            x = eq2_const/(eq1_coeff - eq2_coeff)
+            y = tof(lneq1.get_rhs())(x)
+        else:
+            raise Exception("Unknown prod equation")
+
     else:
         raise Exception('line_intersection: ' + 'unknown equations')
 
@@ -134,19 +144,36 @@ def minimize_obj_fun(f, corner_points):
 
 ## write your answer to problem 1a as x, y, mv
 def opt_prob_1a():
-  ## your code here
-  pass
+    f1 = lambda x, y: 2 * x + y
+    #TODO code something to find the corner points
+    corner_points = [make_point2d(1, 1),
+                     make_point2d(1, 5),
+                     make_point2d(5, 1)]
+    max_xy = maximize_obj_fun(f1, corner_points)
+    max_val = f1(max_xy.get_x().get_val(), max_xy.get_y().get_val())
+    print(max_xy, max_val)
 
 ## write your answer to problem 1b as x, y, mv
 def opt_prob_1b():
-  ## your code here
-  pass
+    f1 = lambda x, y: x/2 + y
+    corner_points = [make_point2d(2, 2),
+                     make_point2d(3, 3),
+                     make_point2d(4, 2)]
+    min_xy = minimize_obj_fun(f1, corner_points)
+    min_val = f1(min_xy.get_x().get_val(), min_xy.get_y().get_val())
+    print(min_xy, min_val)
+
 
 ## write your answer to problem 1c as x, y, mv
 def opt_prob_1c():
-  ## your code here
-  pass
-  
+    f1 = lambda x, y: 3 * x - 2*y
+    corner_points = [make_point2d(0, 0),
+                     make_point2d(2.5, 2.5),
+                     make_point2d(-0.84, 0.84)]
+    max_xy = maximize_obj_fun(f1, corner_points)
+    max_val = f1(max_xy.get_x().get_val(), max_xy.get_y().get_val())
+    print(max_xy, max_val)
+
 
 
   
