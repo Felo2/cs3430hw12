@@ -17,3 +17,4 @@ class line_eq(object):
         return str(self.__lhs__) + ' = ' + str(self.__rhs__)
 
 
+
