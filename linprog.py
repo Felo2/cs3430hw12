@@ -2,12 +2,12 @@
 
 ###################################
 # module: linprog.py
-# YOUR NAME
-# YOUR A#
+# Krista Gurney
+# A01671888
 ###################################
 
 ## your imports
-'''
+
 from line_eq import line_eq
 from maker import make_line_eq
 from maker import make_var, make_const, make_prod
@@ -17,11 +17,11 @@ from const import const
 from var import var
 from prod import prod
 from pwr import pwr
-from poly12 import is_pwr_1
+# from poly12 import is_pwr_1
 from plus import plus
 from tof import tof
 import sys
-'''
+
 
 
 ### sample line equations
