@@ -62,7 +62,7 @@ def test_06():#y = x; y = -x +6
                                               make_const(6.0)))
   print(line_intersection(ln1, ln2))
 
-def test_07():
+def test_07():#y = -1/5x +10; y = 1/5x + 5
   ln1 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(-1.0/5.0),
                                                         make_pwr('x', 1.0)),
                                               make_const(10.0)))
@@ -71,14 +71,14 @@ def test_07():
                                               make_const(5.0)))
   print(line_intersection(ln1, ln2))
 
-def test_08():
+def test_08():#y = 1; y = -x + 6
   ln1 = make_line_eq(make_var('y'), make_const(1.0))
   ln2 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(-1.0),
                                                         make_pwr('x', 1.0)),
                                               make_const(6.0)))
   print(line_intersection(ln1, ln2))
 
-def test_09():
+def test_09():#y = 5; y = -x +6
   ln1 = make_line_eq(make_var('y'), make_const(5.0))
   ln2 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(-1.0),
                                                         make_pwr('x', 1.0)),
@@ -86,14 +86,14 @@ def test_09():
   print(line_intersection(ln1, ln2))
 
 
-def test_10():
-    f1 = lambda x, y: 2 * x + y
-    corner_points = [make_point2d(1, 1),
-                     make_point2d(1, 5),
-                     make_point2d(5, 1)]
-    print(maximize_obj_fun(f1, corner_points))
-    f2 = lambda x, y: x - 2 * y
-    print(minimize_obj_fun(f2, corner_points))
+# def test_10():
+#     f1 = lambda x, y: 2 * x + y
+#     corner_points = [make_point2d(1, 1),
+#                      make_point2d(1, 5),
+#                      make_point2d(5, 1)]
+#     print(maximize_obj_fun(f1, corner_points))
+#     f2 = lambda x, y: x - 2 * y
+#     print(minimize_obj_fun(f2, corner_points))
 
 
 ### more tests
@@ -128,4 +128,4 @@ def test_12():
     print(line_intersection(ln3, ln4))
 
 if __name__ =='__main__':
-    test_05()
+    test_06()
