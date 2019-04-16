@@ -94,14 +94,14 @@ def test_02():# y = 2; y = x -6
   print(line_intersection(ln1, ln2))
   print(line_intersection(ln2, ln1))
 
-def test_03():
+def test_03():#y = -2; y = x +10
   ln1 = make_line_eq(make_var('y'), make_const(-2.0))
   ln2 = make_line_eq(make_var('y'), make_plus(make_pwr('x', 1.0),
                                               make_const(10.0)))
   print(line_intersection(ln1, ln2))
   print(line_intersection(ln2, ln1))
 
-def test_04():
+def test_04():#y = 2; y = 2x-6
   ln1 = make_line_eq(make_var('y'), make_const(2.0))
   ln2 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(2.0),
                                                         make_pwr('x', 1.0)),
@@ -109,16 +109,16 @@ def test_04():
   print(line_intersection(ln1, ln2))
   print(line_intersection(ln2, ln1))
 
-# def test_05():
-#   ln1 = make_line_eq(make_var('y'), make_pwr('x', 1.0))
-#   ln2 = make_line_eq(make_var('y'), make_prod(make_const(2.0),
-#                                               make_pwr('x', 1.0)))
-#   ln3 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(3.0),
-#                                                         make_pwr('x', 1.0)),
-#                                               make_const(-10.0)))
-#   print(get_line_coeffs(ln1))
-#   print(get_line_coeffs(ln2))
-#   print(get_line_coeffs(ln3))
+def test_05():
+  ln1 = make_line_eq(make_var('y'), make_pwr('x', 1.0))
+  ln2 = make_line_eq(make_var('y'), make_prod(make_const(2.0),
+                                              make_pwr('x', 1.0)))
+  ln3 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(3.0),
+                                                        make_pwr('x', 1.0)),
+                                              make_const(-10.0)))
+  print(get_line_coeffs(ln1))
+  print(get_line_coeffs(ln2))
+  print(get_line_coeffs(ln3))
 
 def test_06():
   ln1 = make_line_eq(make_var('y'), make_pwr('x', 1.0))
@@ -215,7 +215,7 @@ def opt_prob_1c():
   
 
 if __name__ =='__main__':
-    test_02()
+    test_04()
   
   
 
