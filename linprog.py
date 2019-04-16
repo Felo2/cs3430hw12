@@ -112,12 +112,24 @@ def get_line_coeffs(lneq):
 
 
 def maximize_obj_fun(f, corner_points):
-  ## your code here
-  pass
+    currentMax = 0
+    for points in corner_points:
+        max = f(points.get_x().get_val(), points.get_y().get_val())
+        if max > currentMax:
+            currentMax = max
+            max_point = make_point2d(points.get_x().get_val(), points.get_y().get_val())
+
+    return max_point
 
 def minimize_obj_fun(f, corner_points):
-  ## your code here
-  pass
+    currentMin = 1000000
+    for points in corner_points:
+        min = f(points.get_x().get_val(), points.get_y().get_val())
+        if min < currentMin:
+            currentMin = min
+            min_point = make_point2d(points.get_x().get_val(), points.get_y().get_val())
+
+    return min_point
 
 
 ## write your answer to problem 1a as x, y, mv
