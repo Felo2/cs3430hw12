@@ -53,10 +53,10 @@ lneq8 = make_line_eq(make_var('y'),
 def line_intersection(lneq1, lneq2):
     # Case 1: 2 const lines
     if is_const_line(lneq1) and is_const_line(lneq2):
-        if var(lneq1.get_lhs()).get_name() == 'x':
+        if lneq1.get_lhs().get_name() == 'x':
             x = lneq1.get_rhs().get_val()
             y = lneq2.get_rhs().get_val()
-        elif var(lneq1.get_lhs()).get_name() == 'y':
+        elif lneq1.get_lhs().get_name() == 'y':
             y = lneq1.get_rhs().get_val()
             x = lneq2.get_rhs().get_val()
         else:
