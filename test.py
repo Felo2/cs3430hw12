@@ -128,4 +128,4 @@ def test_12():
     print(line_intersection(ln3, ln4))
 
 if __name__ =='__main__':
-    test_06()
+    test_07()

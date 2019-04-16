@@ -77,7 +77,14 @@ def line_intersection(lneq1, lneq2):
                 eq2_const = lneq2.get_rhs().get_elt2().get_val()
                 x = eq2_const/(eq1_coeff - eq2_coeff)
                 y = tof(lneq1.get_rhs())(x)
-
+    elif isinstance(lneq1.get_rhs(), plus):#y = -0.2x+10; y =0.2x+5
+        eq1_coeff = get_line_coeffs(lneq1)
+        eq2_coeff = get_line_coeffs(lneq2)
+        if isinstance(lneq2.get_rhs(), plus):
+            x = (lneq2.get_rhs().get_elt2().get_val() + lneq1.get_rhs().get_elt2().get_val())/ (eq1_coeff - eq2_coeff)
+            y = tof(lneq1.get_rhs())(x)
+        else:
+            raise Exception("Unknown plus equation")
     else:
         raise Exception('line_intersection: ' + 'unknown equations')
 
