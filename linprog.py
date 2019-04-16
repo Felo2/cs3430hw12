@@ -6,8 +6,6 @@
 # A01671888
 ###################################
 
-## your imports
-
 from line_eq import line_eq
 from maker import make_line_eq
 from maker import make_var, make_const, make_prod
@@ -20,6 +18,7 @@ from pwr import pwr
 # from poly12 import is_pwr_1
 from plus import plus
 from tof import tof
+from consts import is_const_line
 import sys
 
 
@@ -52,8 +51,12 @@ lneq8 = make_line_eq(make_var('y'),
 
 
 def line_intersection(lneq1, lneq2):
-  ## your code here
-  pass
+    # Case 1: 2 const lines
+    if is_const_line(lneq1 and is_const_line(lneq2):
+        if (var)(lneq1.get_lhs()).get_name() == 'x':
+            
+
+
     
 ### a few tests
 
