@@ -145,10 +145,20 @@ def minimize_obj_fun(f, corner_points):
 ## write your answer to problem 1a as x, y, mv
 def opt_prob_1a():
     f1 = lambda x, y: 2 * x + y
-    #TODO code something to find the corner points
-    corner_points = [make_point2d(1, 1),
-                     make_point2d(1, 5),
-                     make_point2d(5, 1)]
+    ln1 = make_line_eq(make_var('x'), make_const(1.0))
+    ln2 = make_line_eq(make_var('y'), make_const(1.0))
+    ln3 = make_line_eq(make_var('x'), make_const(5.0))
+    ln4 = make_line_eq(make_var('y'), make_const(5.0))
+    ln5 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(-1.0),
+                                                          make_pwr('x', 1.0)),
+                                                make_const(6.0)))
+
+    cp_1 = line_intersection(ln1, ln5)
+    cp_2 = line_intersection(ln1, ln2)
+    cp_3 = line_intersection(ln4, ln5)
+
+    corner_points = [cp_1, cp_2, cp_3]
+
     max_xy = maximize_obj_fun(f1, corner_points)
     max_val = f1(max_xy.get_x().get_val(), max_xy.get_y().get_val())
     print(max_xy, max_val)

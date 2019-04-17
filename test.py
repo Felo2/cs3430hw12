@@ -129,4 +129,4 @@ def test_12():
 
 if __name__ =='__main__':
     # opt_prob_1a()
-    opt_prob_1c()
+    opt_prob_1a()
