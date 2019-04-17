@@ -166,9 +166,19 @@ def opt_prob_1a():
 ## write your answer to problem 1b as x, y, mv
 def opt_prob_1b():
     f1 = lambda x, y: x/2 + y
-    corner_points = [make_point2d(2, 2),
-                     make_point2d(3, 3),
-                     make_point2d(4, 2)]
+    ln1 = make_line_eq(make_var('y'), make_const(2.0))
+    ln2 = make_line_eq(make_var('x'), make_const(0.0))
+    ln3 = make_line_eq(make_var('y'), make_pwr('x', 1.0))
+    ln4 = make_line_eq(make_var('y'), make_plus(make_prod(make_const(-1.0),
+                                                          make_pwr('x', 1.0)),
+                                                make_const(6.0)))
+
+    cp_1 = line_intersection(ln3, ln4)
+    cp_2 = line_intersection(ln1, ln3)
+    cp_3 = line_intersection(ln1, ln4)
+    
+    corner_points = [cp_1, cp_2, cp_3]
+
     min_xy = minimize_obj_fun(f1, corner_points)
     min_val = f1(min_xy.get_x().get_val(), min_xy.get_y().get_val())
     print(min_xy, min_val)
