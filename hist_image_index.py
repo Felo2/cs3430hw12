@@ -6,7 +6,7 @@ import sys
 import os
 import re
 ## use import pickle in Py3.
-# import _pickle as cPickle
+import pickle
 
 ################################
 # module: hist_image_index.py
@@ -38,6 +38,10 @@ def hist_index_img_dir(imgdir, color_space, bin_size, pick_file):
         filepath = imgdir + "\\"+ filename
         imgdr, norm_hist = hist_index_img(filepath, color_space, bin_size)
         HIST_INDEX[imgdr] = norm_hist
+
+    outfile = open(pick_file, 'wb')
+    pickle.dump(HIST_INDEX, outfile)
+    outfile.close()
 
     # print(HIST_INDEX)
     print('indexing finished')

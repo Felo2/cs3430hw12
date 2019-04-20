@@ -5,7 +5,7 @@ import cv2
 import sys
 import os
 ## use import pickle in Py3
-import cPickle as pickle
+import pickle
 from matplotlib import pyplot as plt
 from os.path import basename
 
@@ -45,9 +45,9 @@ def load_hist_index(pick_path):
 ## change these as you see fit.
 ## IMGDIR is the directory for test images
 ## PICDIR is the directory where the pickle files are stored.
-IMGDIR = '/home/vladimir/teaching/CS3430/S19/hw/hw12f/hist_indexing/hist_test/'
-PICDIR = '/home/vladimir/teaching/CS3430/S19/hw/hw12f/hist_indexing/picks/'
 
+IMGDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\hist_test'
+PICDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\picks\\'
 '''
 My Py shell output:
 images/123461762.JPG --> 2.69072864504
@@ -167,6 +167,7 @@ def test_06():
   
  
 if __name__ == '__main__':
-  pass
+  hist_index = load_hist_index(PICDIR +'rgb_hist8.pck')
+  print(len(hist_index))
 
 
