@@ -10,8 +10,8 @@ import cPickle as pickle
 
 ################################
 # module: hist_image_index.py
-# YOUR NAME
-# YOUR A#
+# Krista Gurney
+# A01671888
 ################################
 
 
@@ -33,8 +33,9 @@ def hist_index_img_dir(imgdir, color_space, bin_size, pick_file):
 ## change these as you see fit.
 ## IMGDIR is the directory where the images to be indexed are saved.
 ## PICDIR is the directory where pickled dictionaries are saved.
-IMGDIR = '/home/vladimir/teaching/CS3430/S19/hw/hw12f/hist_indexing/images/'
-PICDIR = '/home/vladimir/teaching/CS3430/S19/hw/hw12f/hist_indexing/picks/'
+IMGDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\images'
+PICDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\images'
+# PICDIR = '/home/vladimir/teaching/CS3430/S19/hw/hw12f/hist_indexing/picks/'
 
 def test_01():
   HIST_INDEX = {}

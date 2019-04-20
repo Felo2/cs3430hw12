@@ -11,8 +11,8 @@ from os.path import basename
 
 ################################
 # module: hist_image_index.py
-# YOUR NAME
-# YOUR A#
+# Krista Gurney
+# A01671888
 ################################
 
 
