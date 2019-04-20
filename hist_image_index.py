@@ -6,26 +6,41 @@ import sys
 import os
 import re
 ## use import pickle in Py3.
-import cPickle as pickle
+# import _pickle as cPickle
 
 ################################
 # module: hist_image_index.py
 # Krista Gurney
 # A01671888
 ################################
-
+from os import listdir
+from os.path import isfile, join
 
 ## indexing dictionary.
 HIST_INDEX = {}
 
 def hist_index_img(imgp, color_space, bin_size=8):
-  ## your code here
-  pass
+    image = cv2.imread(imgp)
+    if color_space == 'rgb':
+        input_hist = cv2.calcHist([image], [0, 1, 2], None, [bin_size, bin_size, bin_size], [0, 256, 0, 256, 0, 256])
+        norm_hist = cv2.normalize(input_hist, input_hist).flatten()
+    elif color_space == 'hsv':
+        input_hist = cv2.calcHist([image], [0, 1, 2], None, [bin_size, bin_size, bin_size], [0, 180, 0, 180, 0, 180])
+        norm_hist = cv2.normalize(input_hist, input_hist).flatten()
+
+    return imgp, norm_hist
 
 def hist_index_img_dir(imgdir, color_space, bin_size, pick_file):
-  print(imgdir)
-  ## your code here
-  print('indexing finished')
+    print(imgdir)
+    os.listdir(imgdir)
+    onlyfiles = [f for f in listdir(imgdir) if isfile(join(imgdir, f))]
+    for filename in onlyfiles:
+        filepath = imgdir + "\\"+ filename
+        imgdr, norm_hist = hist_index_img(filepath, color_space, bin_size)
+        HIST_INDEX[imgdr] = norm_hist
+
+    # print(HIST_INDEX)
+    print('indexing finished')
 
 
 ## ========================= Image Indexing Tests =====================
@@ -34,27 +49,27 @@ def hist_index_img_dir(imgdir, color_space, bin_size, pick_file):
 ## IMGDIR is the directory where the images to be indexed are saved.
 ## PICDIR is the directory where pickled dictionaries are saved.
 IMGDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\images'
-PICDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\images'
+PICDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\picks\\'
 # PICDIR = '/home/vladimir/teaching/CS3430/S19/hw/hw12f/hist_indexing/picks/'
 
 def test_01():
-  HIST_INDEX = {}
-  hist_index_img_dir(IMGDIR, 'rgb', 8, PICDIR + 'rgb_hist8.pck')
+    HIST_INDEX = {}
+    hist_index_img_dir(IMGDIR, 'rgb', 8, PICDIR + 'rgb_hist8.pck')
 
 def test_02(): 
-  HIST_INDEX = {}
-  hist_index_img_dir(IMGDIR, 'rgb', 16, PICDIR + 'rgb_hist16.pck')
+    HIST_INDEX = {}
+    hist_index_img_dir(IMGDIR, 'rgb', 16, PICDIR + 'rgb_hist16.pck')
 
 def test_03():
-  HIST_INDEX = {}
-  hist_index_img_dir(IMGDIR, 'hsv', 8, PICDIR + 'hsv_hist8.pck')
+    HIST_INDEX = {}
+    hist_index_img_dir(IMGDIR, 'hsv', 8, PICDIR + 'hsv_hist8.pck')
 
 def test_04():
-  HIST_INDEX = {}
-  hist_index_img_dir(IMGDIR, 'hsv', 16, PICDIR + 'hsv_hist16.pck')
+    HIST_INDEX = {}
+    hist_index_img_dir(IMGDIR, 'hsv', 16, PICDIR + 'hsv_hist16.pck')
 
 
 if __name__ == '__main__':
-  pass
+    test_01()
 
 
