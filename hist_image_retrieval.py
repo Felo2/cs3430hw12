@@ -8,6 +8,7 @@ import os
 import pickle
 from matplotlib import pyplot as plt
 from os.path import basename
+from hist_image_index import hist_index_img
 
 ################################
 # module: hist_image_index.py
@@ -25,8 +26,26 @@ def show_images(input_image, match_list):
   pass
 
 def find_sim_rgb_images(imgpath, bin_size, hist_index, hist_sim):
-  ## your code here
-  pass
+# dist_table = {}
+# dist_table['cv2.HISTCMP_CORREL'] = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_CORREL)
+# dist_table['cv2.HISTCMP_CHISQR'] = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_CHISQR)
+# dist_table['cv2.HISTCMP_INTERSECT'] = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_INTERSECT)
+# dist_table['cv2.HISTCMP_BHATTA'] = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_BHATTACHARYYA)
+  _path, norm_hist1 = hist_index_img(imgpath, 'rgb', bin_size)
+
+  sim_arr = []
+
+  for path,norm_hist2 in hist_index.items():
+    if hist_sim == 'inter':
+      sim_score = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_INTERSECT)
+    elif hist_sim == 'chisqr':
+      sim_score = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_CHISQR)
+    elif hist_sim == 'bhatta':
+      sim_score = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_BHATTACHARYYA)
+
+    sim_arr.append((path, sim_score))
+  sorted_sim = sorted(sim_arr, key=lambda tup: tup[1], reverse = True)
+  return sorted_sim[0:3]
 
 def find_sim_hsv_images(imgpath, bin_size, hist_index, hist_sim):
   ## your code here
@@ -46,7 +65,7 @@ def load_hist_index(pick_path):
 ## IMGDIR is the directory for test images
 ## PICDIR is the directory where the pickle files are stored.
 
-IMGDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\hist_test'
+IMGDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\hist_test\\'
 PICDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\picks\\'
 '''
 My Py shell output:
@@ -57,10 +76,11 @@ images/123472255.JPG --> 2.43531483644
 def test_01():
   hist_index = load_hist_index(PICDIR + 'rgb_hist8.pck')
   assert len(hist_index) == 318
-  imgpath = IMGDIR + 'food_test/img01.JPG'
+  imgpath = IMGDIR + 'food_test\\img01.JPG'
   inimg = cv2.imread(imgpath)
   top_matches = find_sim_rgb_images(imgpath,
 		                    8, hist_index, 'inter')
+  print(top_matches)
   for imagepath, sim in top_matches:
     print(imagepath + ' --> ' + str(sim))
   show_images(inimg, top_matches)
@@ -167,7 +187,7 @@ def test_06():
   
  
 if __name__ == '__main__':
-  hist_index = load_hist_index(PICDIR +'rgb_hist8.pck')
-  print(len(hist_index))
-
+  # hist_index = load_hist_index(PICDIR +'rgb_hist8.pck')
+  # print(len(hist_index))
+  test_01()
 
