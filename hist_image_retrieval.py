@@ -22,34 +22,50 @@ def compute_hist_sim(inhist_vec, hist_index, hist_sim, topn=3):
   pass
  
 def show_images(input_image, match_list):
-  ## your code here
-  pass
+
+  # show original image
+  rgb1 = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
+  fig1 = plt.figure(1)
+  fig1.suptitle('Input Image')
+  plt.imshow(rgb1)
+
+  for path, sim_score in match_list:
+    image = cv2.imread(path)
+    rgb1 = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    fig1 = plt.figure(1)
+    fig1.suptitle(path + 'Sim = '+str(sim_score))
+    plt.imshow(rgb1)
+
 
 def find_sim_rgb_images(imgpath, bin_size, hist_index, hist_sim):
-# dist_table = {}
-# dist_table['cv2.HISTCMP_CORREL'] = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_CORREL)
-# dist_table['cv2.HISTCMP_CHISQR'] = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_CHISQR)
-# dist_table['cv2.HISTCMP_INTERSECT'] = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_INTERSECT)
-# dist_table['cv2.HISTCMP_BHATTA'] = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_BHATTACHARYYA)
-  _path, norm_hist1 = hist_index_img(imgpath, 'rgb', bin_size)
+  return find_sim_images(imgpath, bin_size, hist_index, hist_sim, 'rgb')
+
+def find_sim_hsv_images(imgpath, bin_size, hist_index, hist_sim):
+  return find_sim_images(imgpath, bin_size, hist_index, hist_sim, 'hsv')
+
+def find_sim_images(imgpath, bin_size, hist_index, hist_sim, image_type):
+  _path, norm_hist1 = hist_index_img(imgpath, image_type, bin_size)
 
   sim_arr = []
+  reverse_flag = True
 
   for path,norm_hist2 in hist_index.items():
     if hist_sim == 'inter':
       sim_score = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_INTERSECT)
-    elif hist_sim == 'chisqr':
+    elif hist_sim == 'chisqr': #closer to 0 more similar
       sim_score = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_CHISQR)
-    elif hist_sim == 'bhatta':
+      reverse_flag = False
+    elif hist_sim == 'bhatta':#closer to 0 more similar
       sim_score = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_BHATTACHARYYA)
+      reverse_flag = False
+    elif hist_sim == 'correl':
+      sim_score = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_CORREL)
 
     sim_arr.append((path, sim_score))
-  sorted_sim = sorted(sim_arr, key=lambda tup: tup[1], reverse = True)
+
+  sorted_sim = sorted(sim_arr, key=lambda tup: tup[1], reverse = reverse_flag)
   return sorted_sim[0:3]
 
-def find_sim_hsv_images(imgpath, bin_size, hist_index, hist_sim):
-  ## your code here
-  pass
 
 def load_hist_index(pick_path):
   with open(pick_path, 'rb') as histfile:
@@ -78,13 +94,17 @@ def test_01():
   assert len(hist_index) == 318
   imgpath = IMGDIR + 'food_test\\img01.JPG'
   inimg = cv2.imread(imgpath)
-  top_matches = find_sim_rgb_images(imgpath,
-		                    8, hist_index, 'inter')
-  print(top_matches)
-  for imagepath, sim in top_matches:
-    print(imagepath + ' --> ' + str(sim))
-  show_images(inimg, top_matches)
-  del hist_index
+  top_matches = find_sim_rgb_images(imgpath, 8, hist_index, 'inter')
+
+  rgb1 = cv2.cvtColor(inimg, cv2.COLOR_BGR2RGB)
+  fig1 = plt.figure(1)
+  fig1.suptitle('Input Image')
+  plt.imshow(rgb1)
+  #
+  # for imagepath, sim in top_matches:
+  #   print(imagepath + ' --> ' + str(sim))
+  # show_images(inimg, top_matches)
+  # del hist_index
 
 '''
 My Py shell output:

@@ -27,6 +27,8 @@ def hist_index_img(imgp, color_space, bin_size=8):
     elif color_space == 'hsv':
         input_hist = cv2.calcHist([image], [0, 1, 2], None, [bin_size, bin_size, bin_size], [0, 180, 0, 180, 0, 180])
         norm_hist = cv2.normalize(input_hist, input_hist).flatten()
+    else:
+        raise Exception("Unknown color space")
 
     return imgp, norm_hist
 
