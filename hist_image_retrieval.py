@@ -16,10 +16,10 @@ from hist_image_index import hist_index_img
 # A01671888
 ################################
 
-
-def compute_hist_sim(inhist_vec, hist_index, hist_sim, topn=3):
-  ## your code here
-  pass
+#
+# def compute_hist_sim(inhist_vec, hist_index, hist_sim, topn=3):
+#   ## your code here
+#   pass
  
 def show_images(input_image, match_list):
 
@@ -28,13 +28,15 @@ def show_images(input_image, match_list):
   fig1 = plt.figure(1)
   fig1.suptitle('Input Image')
   plt.imshow(rgb1)
+  plt.show()
 
   for path, sim_score in match_list:
     image = cv2.imread(path)
     rgb1 = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     fig1 = plt.figure(1)
-    fig1.suptitle(path + 'Sim = '+str(sim_score))
+    fig1.suptitle(path + ' Sim = '+str(sim_score))
     plt.imshow(rgb1)
+    plt.show()
 
 
 def find_sim_rgb_images(imgpath, bin_size, hist_index, hist_sim):
@@ -96,15 +98,15 @@ def test_01():
   inimg = cv2.imread(imgpath)
   top_matches = find_sim_rgb_images(imgpath, 8, hist_index, 'inter')
 
-  rgb1 = cv2.cvtColor(inimg, cv2.COLOR_BGR2RGB)
-  fig1 = plt.figure(1)
-  fig1.suptitle('Input Image')
-  plt.imshow(rgb1)
-  #
-  # for imagepath, sim in top_matches:
-  #   print(imagepath + ' --> ' + str(sim))
-  # show_images(inimg, top_matches)
-  # del hist_index
+  # rgb1 = cv2.cvtColor(inimg, cv2.COLOR_BGR2RGB)
+  # fig1 = plt.figure(1)
+  # fig1.suptitle('Input Image')
+  # plt.imshow(rgb1)
+
+  for imagepath, sim in top_matches:
+    print(imagepath + ' --> ' + str(sim))
+  show_images(inimg, top_matches)
+  del hist_index
 
 '''
 My Py shell output:

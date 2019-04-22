@@ -54,8 +54,11 @@ def hist_index_img_dir(imgdir, color_space, bin_size, pick_file):
 ## change these as you see fit.
 ## IMGDIR is the directory where the images to be indexed are saved.
 ## PICDIR is the directory where pickled dictionaries are saved.
-IMGDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\images'
-PICDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\picks\\'
+# IMGDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\images'
+IMGDIR = 'images'
+PICDIR = 'picks\\'
+
+# PICDIR = 'C:\\Users\\Krista Gurney\\Documents\\cs3430\\hw12Starter\\picks\\'
 # PICDIR = '/home/vladimir/teaching/CS3430/S19/hw/hw12f/hist_indexing/picks/'
 
 def test_01():
